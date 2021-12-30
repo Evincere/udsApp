@@ -1,45 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title></title>
+    <title>LOGIN</title>
 
+    <!--JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
     <link
-      href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       rel="stylesheet"
-      id="bootstrap-css"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Los iconos tipo Solid de Fontawesome-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css"
+    />
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
     <!-- Nuestro css-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/css/styleLogin.css"
-    />
+    <!--<link rel="stylesheet" type="text/css" href="" th:href="@{}">-->
   </head>
   <body>
-    <div class="login-reg-panel">
-      <div class="login-info-box">
-        <h2>¿Tienes una cuenta?</h2>
-        <label id="label-register" for="log-reg-show">Login</label>
-        <input
-          type="radio"
-          name="active-log-panel"
-          id="log-reg-show"
-          checked="checked"
-        />
-      </div>
-
-      <div class="register-info-box">
-        <h2>¿No tienes una cuenta?</h2>
-        <p>Se necesitará que el Admin lo haga</p>
-        <label id="label-login" for="log-login-show">Registrar</label>
-        <input type="radio" name="active-log-panel" id="log-login-show" />
-      </div>
-
-      <div class="white-panel">
-        <div class="login-show">
+    <!--PAGINA DE LOGIN CON BOOTSTRAP Y THYMELEAF-->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
           <h2 class="text-center">LOGIN</h2>
           <div th:if="${param.error}">Invalid username and password.</div>
           <div th:if="${param.logout}">You have been logged out.</div>
@@ -48,7 +36,7 @@
           </div>
           <form
             id="formulario"
-            class="form-control"
+            class="form-horizontal"
             th:action="@{/login}"
             method="post"
           >
@@ -56,7 +44,7 @@
               <label class="control-label col-sm-2" for="usuario"
                 >Usuario:</label
               >
-              <div class="">
+              <div class="col-sm-10">
                 <input
                   type="email"
                   class="form-control"
@@ -71,7 +59,7 @@
               <label class="control-label col-sm-2" for="contrasena"
                 >Contraseña:</label
               >
-              <div class="">
+              <div class="col-sm-10">
                 <input
                   type="password"
                   class="form-control"
@@ -92,16 +80,9 @@
             </div>
           </form>
         </div>
-        <div class="register-show">
-          <h2>REGISTER</h2>
-          <input  placeholder="Email" />
-          <input  placeholder="Password" />
-          <input  placeholder="Confirm Password" />
-          <input  value="Register" />
-        </div>
       </div>
     </div>
-    <script src="/js/loginJs.js"></script>
+
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>

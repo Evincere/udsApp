@@ -5,41 +5,64 @@
         <!--<link rel="stylesheet" href="public/socialnetwork.css">-->
     </head>
     <body>
-        
-        <th:block th:if="${#authorization.expression('isAuthenticated()')}"><h1 th:inline="text">Hola, <span th:text="${#authentication.name}"></span>!</h1></th:block>
-        <th:block th:unless="${#authorization.expression('isAuthenticated()')}"><h1>Quien es usted? Solicite al Admin su registro</h1></th:block>
-        <br>
+    <th:block th:if="${#authorization.expression('isAuthenticated()')}"
+              ><h1 th:inline="text">
+            Hola, <span th:text="${#authentication.name}"></span>!
+        </h1></th:block
+    >
+    <th:block th:unless="${#authorization.expression('isAuthenticated()')}"
+              ><h1>Quien es usted? Solicite al Admin su registro</h1></th:block
+    >
+    <br />
+    <div sec:authorize="isAuthenticated()">
+        USUARIO AUTENTICADO
+    </div>
+
+    <p>
+        Usted es un usuario registrado.<br />
+        Logged user: <span sec:authentication="name"></span><br />
+        <!--<div th:text="${#authentication.principal.username}"></div>
+        Authenticated username:
+        <div sec:authentication="name"></div>-->
+        Roles:<span sec:authentication="principal.authorities"></span><br>
+        <!--<div th:text="${#authentication.principal.authorities}"></div>-->
+        Puede realizar las siguientes acciones:
+    </p>
+
+    <div sec:authorize="hasRole('USER')">
+        <ul>
+            <li>OPERACIONES (COMPRA-VENTA)</li>
+
+            <li>PRESTAMOS (OTORGAMIENTO)</li>
+
+        </ul>
         <div class="container">
             <div class="row">
-                <p>
-                    Usted es un usuario registrado.<br>
-                    Logged user: <span sec:authentication="name">Bob</span><br>
-                    Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-                    Puede realizar las siguientes acciones:
-                    <div class="row">
-                        
-                            
-                            <div th:switch="${principal.authorities}">
-                                <p th:case="'ROLE_USER'">OPERACIONES DE USUARIO</p>
-                                <p th:case="'ROLE_ADMIN'">OPERACIONES DE ADMIN</p>
-                                <p th:case="*">Not specified</p>
-                            </div>
-                        
-                    </div>
-                </p>
-            </div>
+            <form th:action="@{/operaciones}" method="post">
+                <input type="submit" value="Ingresar" />
+            </form>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out" />
+            </form>
+        </div>
+            
         </div>
         
-                                                                       
+
+    </div>
+
+    <div sec:authorize="hasRole('ADMIN')">
+        <div sec:authorize="hasRole('USER')">
+            <ul>
+                <li>OPERACIONES (COMPRA-VENTA-CONSULTAS DE OPERACIONES POR CRITERIOS-MODIFICACIONES)</li>
+                <li>PRESTAMOS (OTORGAMIENTO-CANCELACION-MODIFICACION)</li>
+                <li>USUARIOS (ALTA-BAJA-MODIFICACION-CONSULTAS)</li>
+            </ul>
+        </div>
+    </div>
+    <br><br>
 
 
-         </div>       
-        <div th:text="${#authentication.principal.username}"></div>
-        <div th:text="${#authentication.principal.username}"></div>
-        <div th:text="${#authentication.principal.username}"></div>
-        <div th:text="${#authentication.principal.username}"></div>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out" />
-        </form>
-    </body>
+
+</body>
 </html>
