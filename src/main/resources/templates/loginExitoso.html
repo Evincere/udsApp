@@ -5,13 +5,35 @@
         <!--<link rel="stylesheet" href="public/socialnetwork.css">-->
     </head>
     <body>
-        <div th:if="${#authorization.expression('isAuthenticated()')}">  
-            <h1 th:inline="text">Hola, <span th:text="${#authentication.name}"></span>!</h1>  
+        
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}"><h1 th:inline="text">Hola, <span th:text="${#authentication.name}"></span>!</h1></th:block>
+        <th:block th:unless="${#authorization.expression('isAuthenticated()')}"><h1>Quien es usted? Solicite al Admin su registro</h1></th:block>
+        <br>
+        <div class="container">
+            <div class="row">
+                <p>
+                    Usted es un usuario registrado.<br>
+                    Logged user: <span sec:authentication="name">Bob</span><br>
+                    Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+                    Puede realizar las siguientes acciones:
+                    <div class="row">
+                        
+                            
+                            <div th:switch="${principal.authorities}">
+                                <p th:case="'ROLE_USER'">OPERACIONES DE USUARIO</p>
+                                <p th:case="'ROLE_ADMIN'">OPERACIONES DE ADMIN</p>
+                                <p th:case="*">Not specified</p>
+                            </div>
+                        
+                    </div>
+                </p>
+            </div>
         </div>
-        <div th:unless="${#authorization.expression('isAuthenticated()')}">  
-            <h1>Quien es usted?</h1>  
-        </div>
+        
+                                                                       
 
+
+         </div>       
         <div th:text="${#authentication.principal.username}"></div>
         <div th:text="${#authentication.principal.username}"></div>
         <div th:text="${#authentication.principal.username}"></div>
