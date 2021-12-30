@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Sign-in</title>
+        <!--<link rel="stylesheet" href="public/socialnetwork.css">-->
+    </head>
+    <body>
+        <div th:if="${#authorization.expression('isAuthenticated()')}">  
+            <h1 th:inline="text">Hola, <span th:text="${#authentication.name}"></span>!</h1>  
+        </div>
+        <div th:unless="${#authorization.expression('isAuthenticated()')}">  
+            <h1>Quien es usted?</h1>  
+        </div>
+
+        <div th:text="${#authentication.principal.username}"></div>
+        <div th:text="${#authentication.principal.username}"></div>
+        <div th:text="${#authentication.principal.username}"></div>
+        <div th:text="${#authentication.principal.username}"></div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out" />
+        </form>
+    </body>
+</html>
